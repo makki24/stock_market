@@ -58,6 +58,7 @@ export const loginUser =(creds) =>(dispatch) =>
                 creds.isAuthenticated=true;
                 localStorage.setItem('creds',JSON.stringify(creds));
                 dispatch(receiveLogin());
+                dispatch(fetchAccount());
             }
             else
             {
@@ -134,4 +135,118 @@ export const logoutUser =() =>(dispatch) =>
             dispatch(logoutFailure(err));
         })
 
+}
+
+export const holdsSuccess =(holds) =>
+{
+    return{
+        type:ActionTypes.HOLDS_SUCCESS,
+        holds:holds
+    }
+}
+
+export const holdsRequest =() =>
+{
+    return{
+        type:ActionTypes.HOLDS_REQUEST
+    }
+}
+
+export const historyRequest =() =>
+{
+    return{
+        type:ActionTypes.HISTORY_REQUEST
+    }
+}
+
+export const holdsError= (err) =>
+{
+    return{
+        type:ActionTypes.HOLDS_FAILURE,
+        message:err
+    }
+}
+
+export const historySuccess =(history) =>
+{
+    return{
+        type:ActionTypes.HISTORY_SUCCESS,
+        history:history
+    }
+}
+
+export const historyError= (err) =>
+{
+    return{
+        type:ActionTypes.HISTORY_FAILURE,
+        message:err
+    }
+}
+
+export const fetchAccount =() => (dispatch) =>
+{
+    dispatch(fetchHolds());
+    dispatch(fetchHistory());
+    return;
+}
+
+export const fetchHistory=() => (dispatch) =>
+{
+    dispatch(historyRequest());
+    return fetch(baseUrl+'users/trades/history',
+        {
+            method:'GET',
+            credentials:'include'
+        })
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{throw (err)})
+        .then(response=>response.json())
+        .then((response) =>
+        {
+            dispatch(historySuccess(response));
+        })
+        .catch((err) =>
+        {
+            dispatch(historyError(err));
+        })
+
+}
+export const fetchHolds =() =>(dispatch) =>
+{
+    dispatch(holdsRequest());
+    return fetch(baseUrl+'users/trades/holds',
+        {
+            method:'GET',
+            credentials:'include'
+        })
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{ throw (err)})
+        .then(response => response.json())
+        .then((response) =>
+        {
+            dispatch(holdsSuccess(response));
+        })
+        .catch((err) =>{alert(err);dispatch(holdsError(err))})
 }

@@ -29,6 +29,7 @@ class Header extends Component
     handleLogout()
     {
         this.props.logoutUser();
+
     }
     toggleNav()
     {
@@ -87,14 +88,18 @@ class Header extends Component
                                         </Button>
                                         :
                                         <div>
-                                        <div className="navbar-text mr-3">{this.props.auth.creds.username}</div>
-                                        <Button outline onClick={this.handleLogout}>
-                                            <span className="fa fa-sign-out fa-lg"></span> Logout
-                                            {this.props.auth.isLoading ?
-                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                : null
-                                            }
-                                        </Button>
+                                            <NavLink to={'/user'}><span className="fa fa-user fa-lg mr-2"></span></NavLink>
+                                            <div className="navbar-text mr-3">{this.props.auth.creds.username}</div>
+                                            <Link to={'/home'} className={'link'}>
+                                            <Button outline onClick={this.handleLogout} >
+                                                <span className="fa fa-sign-out fa-lg"></span>
+                                                Logout
+                                                {this.props.auth.isLoading ?
+                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                    : null
+                                                }
+                                            </Button>
+                                            </Link>
                                         </div>
                                     }
 
