@@ -50,10 +50,33 @@ class Account extends Component
                 <tr>
                   <th scope="row">{index+1}</th>
                   <td>{stock.shareId}</td>
-                  <td>{stock.priceBoughtAt}$</td>
+                  <td>{stock.priceBoughtAt} $</td>
                 </tr>
             )
         })
+        const Acc=() =>
+        {
+            console.log(this.props.account);
+            if(this.props.account.detailLoading===true)
+                return (
+                    <Loading/>
+                );
+            else if(this.props.account.errorDetail!==null)
+                return (
+                    <div>
+                        {this.props.account.errorDetail}
+                    </div>
+                );
+            else if(this.props.account.details)
+            {
+                console.log("here");
+                return(
+                    <div>
+                        {this.props.account.details.accountBalance} $
+                    </div>
+                );
+            }
+        }
         return(
             <div className={"container"}>
                 <div className={"row mt-2"}>
@@ -76,7 +99,7 @@ class Account extends Component
                                         Account Balance
                                     </div>
                                     <div className={'col-6 '}>
-                                        85$
+                                        <Acc />
                                     </div>
                                 </div>
                                 <div className={'row mt-2'}>

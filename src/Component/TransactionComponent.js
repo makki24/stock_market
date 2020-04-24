@@ -10,8 +10,8 @@ const TransactionComponent =(props) =>
                 <tr>
                   <th scope="row">{index+1}</th>
                   <td>{stock.shareId}</td>
-                  <td>{stock.priceBoughtAt}$</td>
-                  <td>{stock.priceSoldAt?stock.priceSoldAt+'$':null}</td>
+                  <td>{stock.priceBoughtAt} $</td>
+                  <td>{stock.priceSoldAt?stock.priceSoldAt+' $':null}</td>
                   <td>{new Date(stock.timeBoughtAt).toLocaleDateString()+" "+new Date(stock.timeBoughtAt).toLocaleTimeString()}</td>
                   <td>{stock.timeSoldAt?new Date(stock.timeSoldAt).toLocaleDateString()+" "+new Date(stock.timeSoldAt).toLocaleTimeString():null}</td>
                 </tr>

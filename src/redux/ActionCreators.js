@@ -187,6 +187,7 @@ export const fetchAccount =() => (dispatch) =>
 {
     dispatch(fetchHolds());
     dispatch(fetchHistory());
+    dispatch(fetchUser());
     return;
 }
 
@@ -249,4 +250,56 @@ export const fetchHolds =() =>(dispatch) =>
             dispatch(holdsSuccess(response));
         })
         .catch((err) =>{alert(err);dispatch(holdsError(err))})
+}
+
+export const userRequest =() =>
+{
+    return{
+        type:ActionTypes.USER_REQUEST
+    }
+};
+
+export const userFailure =(err) =>
+{
+    return{
+        type:ActionTypes.USER_FAILURE,
+        message:err
+    }
+};
+
+export const userSuccess =(data)=>
+{
+    return{
+        type:ActionTypes.USER_SUCCESS,
+        payload:data
+    }
+};
+export const fetchUser =() =>(dispatch) =>
+{
+    dispatch(userRequest());
+
+    return fetch(baseUrl+'users/details',
+        {
+            method:'GET',
+            credentials:'include'
+        })
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{throw (err)})
+        .then(response =>response.json())
+        .then((response) =>
+        {
+            dispatch(userSuccess(response));
+        })
+        .catch((err) =>{dispatch(userFailure(err))})
 }
