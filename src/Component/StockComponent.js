@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Breadcrumb, BreadcrumbItem, Card, CardTitle, CardBody, CardImg, CardImgOverlay, CardHeader} from "reactstrap";
+import {Breadcrumb, BreadcrumbItem, Card, CardBody, CardImg, CardHeader} from "reactstrap";
 import {Link} from "react-router-dom";
 import {baseUrl} from "../shared/baseUrl";
 import {Loading} from "./LoadingComponent";
@@ -8,7 +8,7 @@ function RenderCompany({company})
 {
     return(
         <Card >
-            <Link to={`/company/${company.corpId}`} style={{textDecoration:'none',color:'black'}}>
+            <Link to={`/stock/${company.corpId}`} style={{textDecoration:'none',color:'black'}}>
             <CardImg width="100%" src={baseUrl+company.image} alt={company.corpName} />
             <CardHeader style={{textAlign:'center',fontWeight:'bold',color:'white',background:'blue'}}>
                 {company.corpName}

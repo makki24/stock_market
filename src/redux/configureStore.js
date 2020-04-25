@@ -4,13 +4,15 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import {account} from "./account";
 import {corporation} from "./corporation";
+import {shares} from "./shares";
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
             auth: Auth,
             account: account,
-            corporation:corporation
+            corporation:corporation,
+            shares:shares
         }),
         applyMiddleware(thunk, logger)
     );

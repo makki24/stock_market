@@ -9,7 +9,7 @@ const TransactionComponent =(props) =>
         return(
                 <tr>
                   <th scope="row">{index+1}</th>
-                  <td>{stock.shareId}</td>
+                  <td>{stock.shareName}</td>
                   <td>{stock.priceBoughtAt} $</td>
                   <td>{stock.priceSoldAt?stock.priceSoldAt+' $':null}</td>
                   <td>{new Date(stock.timeBoughtAt).toLocaleDateString()+" "+new Date(stock.timeBoughtAt).toLocaleTimeString()}</td>

@@ -6,13 +6,16 @@ import {fetchObjects, loginUser, logoutUser} from "../redux/ActionCreators";
 import Account from "./AccountComponent";
 import TransactionComponent from "./TransactionComponent";
 import StockComponent from "./StockComponent";
+import Shares from "./Shares";
+import HomeComponent from "./HomeComponent";
 
 const mapStatetoProps = (state) =>
 {
     return{
         auth:state.auth,
         account:state.account,
-        corporation:state.corporation
+        corporation:state.corporation,
+        shares:state.shares
     }
 }
 
@@ -57,18 +60,37 @@ class MainComponent extends Component
         }
         const Stockpage=() =>
         {
+            console.log('Stock page called');
             return(
                 <StockComponent corporation={this.props.corporation}/>
             )
         }
+        const Sharepage=(props) =>
+        {
+            console.log("share page called");
+            const match=props.match;
+            return(
+                 <Shares shares={this.props.shares.shares.filter((share) => share.corpId ===match.params.corpID)}
+              isLoading={this.props.shares.isLoading}
+              errMess={this.props.shares.err}/>
+            );
+        }
 
+        const HomePage =() =>
+        {
+            return(
+                <HomeComponent />
+            )
+        }
         return(
             <div>
                 <Header loginUser = { this.props.loginUser} logoutUser ={this.props.logoutUser} auth={this.props.auth}/>
                 <Switch>
+                    <Route path="/home" component={HomePage} />
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
                     <Route exact path={'/history'} component={Historypage} />
-                    <Route exact path={'/stock'} component={Stockpage} />
+                    <Route exact path={'/stock'}  component={Stockpage} />
+                    <Route path={'/stock/:corpID'} component={Sharepage} />
                 </Switch>
             </div>
         )

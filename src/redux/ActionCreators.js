@@ -307,6 +307,7 @@ export const fetchUser =() =>(dispatch) =>
 export const fetchObjects =() =>(dispatch) =>
 {
     dispatch(fetchCorporation());
+    dispatch(fetchShares());
 };
 
 export const fetchCorporation =() =>(dispatch) =>
@@ -357,3 +358,52 @@ export const corpFailure =(err) =>
         message:err.message
     }
 };
+
+export const fetchShares =() => (dispatch)=>
+{
+    dispatch(shareLoading());
+
+    return fetch(baseUrl+'shares')
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{throw (err)})
+        .then(response =>response.json())
+        .then((response) =>
+        {
+            dispatch(shareSuccess(response));
+        })
+        .catch((err) =>{dispatch(shareFailure(err))})
+};
+
+export const shareLoading=()=>
+{
+    return{
+        type:ActionTypes.SHARE_LOADING
+    }
+};
+
+export const shareFailure =(err) =>
+{
+    return{
+        type:ActionTypes.SHARE_FAILURE,
+        message:err.message
+    }
+};
+
+export const shareSuccess =(res) =>
+{
+    return{
+        type:ActionTypes.SHARE_SUCCESS,
+        payload:res
+    }
+}
