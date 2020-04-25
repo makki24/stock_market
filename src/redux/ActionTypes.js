@@ -13,6 +13,13 @@ export const HISTORY_FAILURE= 'HISTORY_FAILURE';
 export const USER_FAILURE= 'USER_FAILURE';
 export const USER_REQUEST= 'USER_REQUEST';
 export const USER_SUCCESS= 'USER_SUCCESS';
+export const CORP_LOADING = 'CORP_LOADING';
+export const CORP_SUCCESS = 'CORP_SUCCESS';
+export const CORP_FAILURE = 'CORP_FAILURE';
+export const SHARE_LOADING = 'SHARE_LOADING';
+export const SHARE_SUCCESS = 'SHARE_SUCCESS';
+export const SHARE_FAILURE = 'SHARE_FAILURE';
+
 
 
 

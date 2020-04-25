@@ -302,4 +302,58 @@ export const fetchUser =() =>(dispatch) =>
             dispatch(userSuccess(response));
         })
         .catch((err) =>{dispatch(userFailure(err))})
+};
+
+export const fetchObjects =() =>(dispatch) =>
+{
+    dispatch(fetchCorporation());
+};
+
+export const fetchCorporation =() =>(dispatch) =>
+{
+    dispatch(corpLoading());
+
+    return fetch(baseUrl+'corporation')
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{throw (err)})
+        .then(response =>response.json())
+        .then((response) =>
+        {
+            dispatch(corpSuccess(response));
+        })
+        .catch((err) =>{dispatch(corpFailure(err))})
+};
+
+export const corpLoading =()=>
+{
+    return{
+        type:ActionTypes.CORP_LOADING
+    }
 }
+
+export const corpSuccess =(response) =>
+{
+    return{
+        type:ActionTypes.CORP_SUCCESS,
+        payload:response
+    }
+};
+
+export const corpFailure =(err) =>
+{
+    return{
+        type:ActionTypes.CORP_FAILURE,
+        message:err.message
+    }
+};
