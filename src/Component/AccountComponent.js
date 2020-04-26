@@ -8,16 +8,6 @@ class Account extends Component
 {
     render()
     {
-        if(this.props.auth.isAuthenticated===false)
-            return(
-                <div className={'container'}>
-                    Please Login
-                </div>
-            )
-        else if(this.props.auth.isLoading===true)
-            return <Loading />
-        else
-        {
             const Holds = () =>
             {
                 if (this.props.account.isLoading)
@@ -57,7 +47,7 @@ class Account extends Component
             const stocks = this.props.account.holds.map((stock, index) =>
             {
                 return (
-                    <tr>
+                    <tr key={index}>
                         <th scope="row">{index + 1}</th>
                         <td>{stock.shareId}</td>
                         <td>{stock.priceBoughtAt} $</td>
@@ -85,6 +75,14 @@ class Account extends Component
                             {this.props.account.details.accountBalance} $
                         </div>
                     );
+                }
+                else
+                {
+                    return (
+                        <div>
+
+                        </div>
+                    )
                 }
             }
             return (
@@ -123,7 +121,6 @@ class Account extends Component
                     </div>
                 </div>
             );
-        }
     }
 }
 

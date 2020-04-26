@@ -7,7 +7,7 @@ const TransactionComponent =(props) =>
     const history=props.account.history.map((stock,index) =>
     {
         return(
-                <tr>
+                <tr key={index}>
                   <th scope="row">{index+1}</th>
                   <td>{stock.shareName}</td>
                   <td>{stock.priceBoughtAt} $</td>

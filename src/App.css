@@ -62,3 +62,17 @@ address{
 {
     color: #FFF;
 }
+
+.company-list
+{
+    width: 320px;
+    height: 300px;
+}
+
+.comapany-img
+{
+    height: auto;
+    max-height: 160px;
+    width: auto;
+    max-width: 350px;
+}

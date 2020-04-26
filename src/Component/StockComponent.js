@@ -7,9 +7,9 @@ import {Loading} from "./LoadingComponent";
 function RenderCompany({company})
 {
     return(
-        <Card >
+        <Card className={'company-list'}>
             <Link to={`/stock/${company.corpId}`} style={{textDecoration:'none',color:'black'}}>
-            <CardImg width="100%" src={baseUrl+company.image} alt={company.corpName} />
+            <CardImg className={'comapany-img'} width="100%" src={baseUrl+company.image} alt={company.corpName} />
             <CardHeader style={{textAlign:'center',fontWeight:'bold',color:'white',background:'blue'}}>
                 {company.corpName}
             </CardHeader>
@@ -71,7 +71,7 @@ class StockComponent extends Component
                     <div className="row">
                         <Breadcrumb>
                             <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>Stocks</BreadcrumbItem>
+                            <BreadcrumbItem active>Company</BreadcrumbItem>
                         </Breadcrumb>
                         <div className="col-12">
                             <h3>Company</h3>

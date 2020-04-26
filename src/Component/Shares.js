@@ -1,20 +1,39 @@
 import React,{Component} from "react";
 import {Loading} from "./LoadingComponent";
-import {Table} from "reactstrap";
+import {Breadcrumb, BreadcrumbItem, Table,Button} from "reactstrap";
+import {Link} from "react-router-dom";
 
-function RenderShares({shares})
+function RenderShares({shares,auth,buyShare,myShares})
 {
+    var solout=0;
     const share =shares.map((share,index) =>
     {
-        return(
-        <tr>
-            <th scope="row">{index + 1}</th>
-            <td>{share.shareName}</td>
-            <td>{share.shareValue}</td>
-            <td>{share.marketId}</td>
-            <td>{share.corpId}</td>
-            <td>{share.soldOut}</td>
-        </tr>)
+        var obj=new Object();
+        obj.shareId=share.shareId;
+        if(share.soldOut===0)
+        {
+            return (
+                <tr key={index}>
+                    <th scope="row">{index + 1-solout}</th>
+                    <td>{share.shareName}</td>
+                    <td>{share.shareValue}</td>
+                    <td>{share.marketId}</td>
+                    <td>{share.corpId}</td>
+                    {
+                        myShares.isLoading ?<Loading />:
+                        auth.isAuthenticated ? <td><Button className={'btn-block'} color={'primary'} onClick={() =>
+                        {
+                            buyShare(obj)
+                        }}>
+                            Buy
+                        </Button></td> : <td/>
+                    }
+                </tr>)
+        }
+        else
+        {
+            solout++;
+        }
     })
     return(
         <Table hover className={'mt-4'}>
@@ -25,7 +44,7 @@ function RenderShares({shares})
               <th>Share Value</th>
               <th>marketID </th>
               <th>corpId</th>
-              <th>Sold out</th>
+              <th></th>
             </tr>
         </thead>
         <tbody className={'text-align-center'}>
@@ -58,7 +77,14 @@ class Shares extends Component
         {
             return (
                     <div className={'container'}>
-                        <RenderShares shares={this.props.shares}/>
+                        <div className={'row'}>
+                            <Breadcrumb>
+                                <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                                <BreadcrumbItem ><Link to='/stock'>Company</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>Stocks</BreadcrumbItem>
+                            </Breadcrumb>
+                        </div>
+                        <RenderShares shares={this.props.shares} auth={this.props.auth} buyShare={this.props.buyShare} myShares={this.props.myShares}/>
                     </div>
             )
         }

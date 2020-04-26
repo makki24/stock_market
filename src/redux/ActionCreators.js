@@ -163,7 +163,7 @@ export const holdsError= (err) =>
 {
     return{
         type:ActionTypes.HOLDS_FAILURE,
-        message:err
+        message:err.message
     }
 }
 
@@ -179,7 +179,7 @@ export const historyError= (err) =>
 {
     return{
         type:ActionTypes.HISTORY_FAILURE,
-        message:err
+        message:err.message
     }
 }
 
@@ -263,7 +263,7 @@ export const userFailure =(err) =>
 {
     return{
         type:ActionTypes.USER_FAILURE,
-        message:err
+        message:err.message
     }
 };
 
@@ -405,5 +405,75 @@ export const shareSuccess =(res) =>
     return{
         type:ActionTypes.SHARE_SUCCESS,
         payload:res
+    }
+};
+
+
+export const buyShare =(data) =>(dispatch) =>
+{
+    dispatch(myShareLoading());
+    return fetch(baseUrl+'users/trades',
+        {
+            method:'POST',
+            headers:
+                {
+                    'Content-Type':'application/json'
+                },
+            body: JSON.stringify(data),
+            credentials:'include'
+        })
+        .then(response =>
+        {
+            if(response.ok)
+                return response;
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                dispatch(fetchShares());
+                dispatch(fetchAccount());
+                dispatch(myShareSuccess());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+            dispatch(myShareFailed(err));
+        })
+}
+
+export const myShareFailed =(err) =>
+{
+    return{
+        type:ActionTypes.MYSHARE_FAILURE,
+        err:err.message
+    }
+}
+
+export const myShareLoading =() =>
+{
+    return{
+        type:ActionTypes.MYSHARE_LOADING
+    }
+}
+
+export const myShareSuccess=() =>
+{
+    return{
+        type:ActionTypes.MYSHARE_SUCCESS
     }
 }

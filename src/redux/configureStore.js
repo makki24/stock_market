@@ -5,6 +5,7 @@ import logger from 'redux-logger';
 import {account} from "./account";
 import {corporation} from "./corporation";
 import {shares} from "./shares";
+import {myShares} from "./myShares";
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -12,7 +13,8 @@ export const ConfigureStore = () => {
             auth: Auth,
             account: account,
             corporation:corporation,
-            shares:shares
+            shares:shares,
+            myShares:myShares
         }),
         applyMiddleware(thunk, logger)
     );
