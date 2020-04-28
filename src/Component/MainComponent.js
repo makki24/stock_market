@@ -4,12 +4,9 @@ import {connect} from "react-redux";
 import {Switch, withRouter,Route,Redirect} from "react-router-dom"
 import {
     buyShare, fetchAccount,
-    fetchHistory,
-    fetchHolds,
     fetchObjects,
-    fetchUser,
     loginUser,
-    logoutUser
+    logoutUser, sellShare
 } from "../redux/ActionCreators";
 import Account from "./AccountComponent";
 import TransactionComponent from "./TransactionComponent";
@@ -24,7 +21,8 @@ const mapStatetoProps = (state) =>
         account:state.account,
         corporation:state.corporation,
         shares:state.shares,
-        myShares:state.myShares
+        myShares:state.myShares,
+        sale:state.sale
     }
 }
 
@@ -34,7 +32,8 @@ const mapDispatchToProps =(dispatch) =>(
     logoutUser: () =>dispatch(logoutUser()),
     fetchObjects:() =>dispatch(fetchObjects()),
     buyShare:(data) =>dispatch(buyShare(data)),
-    fetchAccount:()=>dispatch(fetchAccount())
+    fetchAccount:()=>dispatch(fetchAccount()),
+    sellShare:(data) =>dispatch(sellShare(data))
 });
 
 
@@ -63,7 +62,7 @@ class MainComponent extends Component
         );
         const Accountpage =() =>
             (
-            <Account  account={this.props.account} auth={this.props.auth} />
+            <Account  account={this.props.account} auth={this.props.auth} sellShare={this.props.sellShare} sale={this.props.sale}/>
             );
         const Historypage =() =>
         {
@@ -102,7 +101,7 @@ class MainComponent extends Component
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
-                    <Route exact path={'/history'} component={Historypage} />
+                    <Route exact path={'/user/history'} component={Historypage} />
                     <Route exact path={'/stock'}  component={Stockpage} />
                     <Route path={'/stock/:corpID'} component={Sharepage} />
                     <Redirect to="/home" />

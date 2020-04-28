@@ -477,3 +477,66 @@ export const myShareSuccess=() =>
         type:ActionTypes.MYSHARE_SUCCESS
     }
 }
+
+export const sellLoading= () =>
+{
+    return{
+        type:ActionTypes.SALE_LOADING
+    }
+}
+
+export const sellSuccess =() =>
+{
+    return{
+        type:ActionTypes.SALE_SUCCESS
+    }
+}
+
+export const sellShare =(data) =>(dispatch) =>
+{
+    dispatch(sellLoading());
+
+    console.log("from actions",data);
+    return fetch(baseUrl+'users/trades',
+        {
+            method:'DELETE',
+            credentials:'include',
+            headers:
+                {
+                    'Content-Type':'application/json'
+                },
+            body: JSON.stringify(data),
+        })
+        .then(response =>
+        {
+            if(response.ok)
+                return response;
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                dispatch(fetchShares());
+                dispatch(fetchAccount());
+                dispatch(sellSuccess());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+            dispatch(sellSuccess(err));
+        })
+}

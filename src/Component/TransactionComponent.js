@@ -43,27 +43,28 @@ const TransactionComponent =(props) =>
         return (
             <div className={'container'}>
                 <div className={'row mt-3'}>
-                    <Card>
-                        <CardHeader className={'bg-primary text-white'}>My Transactions</CardHeader>
-                        <CardBody>
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Share</th>
-                                      <th>Price Bought At</th>
-                                      <th>Price Sold At</th>
-                                      <th>Time Bought At</th>
-                                      <th>Time Sold At</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody className={'text-align-center'}>
-                                    {history}
-                                </tbody>
-                            </Table>
-                        </CardBody>
-                    </Card>
+                    <div className={'col-12'}>
+                        <Card>
+                            <CardHeader className={'bg-primary text-white'}>My Transactions</CardHeader>
+                            <CardBody>
+                                <Table hover>
+                                    <thead>
+                                        <tr>
+                                          <th>#</th>
+                                          <th>Share</th>
+                                          <th>Price Bought At</th>
+                                          <th>Price Sold At</th>
+                                          <th>Time Bought At</th>
+                                          <th>Time Sold At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className={'text-align-center'}>
+                                        {history}
+                                    </tbody>
+                                </Table>
+                            </CardBody>
+                        </Card>
+                    </div>
                 </div>
             </div>
         );

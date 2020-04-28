@@ -6,6 +6,7 @@ import {account} from "./account";
 import {corporation} from "./corporation";
 import {shares} from "./shares";
 import {myShares} from "./myShares";
+import {sale} from "./sales";
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -14,7 +15,8 @@ export const ConfigureStore = () => {
             account: account,
             corporation:corporation,
             shares:shares,
-            myShares:myShares
+            myShares:myShares,
+            sale:sale
         }),
         applyMiddleware(thunk, logger)
     );

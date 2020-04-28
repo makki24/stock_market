@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card, CardHeader, CardBody, Table} from "reactstrap";
+import {Card, CardHeader, CardBody, Table,Button} from "reactstrap";
 import {Loading} from "./LoadingComponent";
 import {Link} from "react-router-dom";
 
@@ -35,6 +35,8 @@ class Account extends Component
                                 <th>#</th>
                                 <th>Share</th>
                                 <th>Price Bought At</th>
+                                <th>Current Value</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody className={'text-align-center'}>
@@ -46,11 +48,16 @@ class Account extends Component
             }
             const stocks = this.props.account.holds.map((stock, index) =>
             {
+                var obj={shareId:stock.shareId};
                 return (
                     <tr key={index}>
                         <th scope="row">{index + 1}</th>
                         <td>{stock.shareId}</td>
                         <td>{stock.priceBoughtAt} $</td>
+                        <td>{stock.shareValue} $</td>
+                        <td>{this.props.sale.isLoading?<Loading />:<Button color={'success'} className={'btn-block'} onClick={() =>{
+                            console.log(obj);
+                            this.props.sellShare(obj)}}>Sell</Button> }</td>
                     </tr>
                 )
             })
@@ -88,7 +95,7 @@ class Account extends Component
             return (
                 <div className={"container"}>
                     <div className={"row mt-2"}>
-                        <div className={"col-md-4"}>
+                        <div className={"col-md-6"}>
                             <Card>
                                 <CardHeader className={'bg-primary text-white'}>My stocks</CardHeader>
                                 <CardBody>
@@ -96,7 +103,7 @@ class Account extends Component
                                 </CardBody>
                             </Card>
                         </div>
-                        <div className={"col-md-3"}>
+                        <div className={"col-md-1"}>
                         </div>
                         <div className={"col-md-4"}>
                             <Card>
@@ -112,7 +119,7 @@ class Account extends Component
                                     </div>
                                     <div className={'row mt-2'}>
                                         <div className={'col-6'}>
-                                            <Link to={'/history'}>Trasaction History</Link>
+                                            <Link to={'/user/history'}>Trasaction History</Link>
                                         </div>
                                     </div>
                                 </CardBody>
