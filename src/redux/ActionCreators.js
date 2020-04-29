@@ -540,3 +540,40 @@ export const sellShare =(data) =>(dispatch) =>
             dispatch(sellSuccess(err));
         })
 }
+
+export const accountLoading =() =>
+{
+    return{
+        type:ActionTypes.ACCOUNT_LOADING
+    }
+};
+
+export const accountFailed=(err) =>
+{
+    return{
+        type:ActionTypes.ACCOUNT_ERROR,
+        message:err.message
+    }
+};
+
+export const accountSuccess=() =>
+{
+    return{
+        type:ActionTypes.ACCOUNT_SUCCESS
+    }
+}
+
+export const createAccount= (data) =>(dispatch) =>
+{
+    dispatch(accountLoading());
+
+    return fetch(baseUrl+'users/signup',
+        {
+            method:'POST',
+             headers:
+                {
+                    'Content-Type':'application/json'
+                },
+            body: JSON.stringify(data),
+        })
+}

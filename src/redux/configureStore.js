@@ -7,6 +7,8 @@ import {corporation} from "./corporation";
 import {shares} from "./shares";
 import {myShares} from "./myShares";
 import {sale} from "./sales";
+import {createForms} from "react-redux-form";
+import {CreateAccount} from "./forms";
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -16,7 +18,10 @@ export const ConfigureStore = () => {
             corporation:corporation,
             shares:shares,
             myShares:myShares,
-            sale:sale
+            sale:sale,
+            ...createForms({
+                createaccount: CreateAccount
+            })
         }),
         applyMiddleware(thunk, logger)
     );

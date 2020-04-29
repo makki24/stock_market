@@ -12,7 +12,7 @@ import {
     ModalBody,
     Form, FormGroup, Label, Input
 } from "reactstrap";
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, Redirect} from 'react-router-dom';
 class Header extends Component
 {
     constructor(props)
@@ -146,6 +146,7 @@ class Header extends Component
                            </Label>
                        </FormGroup>
                        <Button type={'submit'} color={'primary'} role={'button'}>Submit</Button>
+                       <Button onClick={() => {window.location.href="createAccount"}}  color={'success'} role={'button'} className={'ml-2'}>Register</Button>
                    </Form>
                </ModalBody>
            </Modal>

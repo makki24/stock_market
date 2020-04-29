@@ -13,6 +13,8 @@ import TransactionComponent from "./TransactionComponent";
 import StockComponent from "./StockComponent";
 import Shares from "./Shares";
 import HomeComponent from "./HomeComponent";
+import CreateAccount from "./CreateAccount";
+
 
 const mapStatetoProps = (state) =>
 {
@@ -101,6 +103,7 @@ class MainComponent extends Component
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
+                    <Route exact path={'/createAccount'} component={()=><CreateAccount />} />
                     <Route exact path={'/user/history'} component={Historypage} />
                     <Route exact path={'/stock'}  component={Stockpage} />
                     <Route path={'/stock/:corpID'} component={Sharepage} />
