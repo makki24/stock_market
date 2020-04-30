@@ -1,5 +1,6 @@
 import {baseUrl} from "../shared/baseUrl";
 import * as ActionTypes from "./ActionTypes";
+import {actions} from "react-redux-form";
 
 export const requestLogin =() =>
 {
@@ -575,5 +576,25 @@ export const createAccount= (data) =>(dispatch) =>
                     'Content-Type':'application/json'
                 },
             body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                dispatch(accountSuccess());
+                dispatch(actions.reset('createaccount'))
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+            dispatch(accountFailed(err));
         })
 }

@@ -3,7 +3,7 @@ import Header from "./HeaderComponent";
 import {connect} from "react-redux";
 import {Switch, withRouter,Route,Redirect} from "react-router-dom"
 import {
-    buyShare, fetchAccount,
+    buyShare, createAccount, fetchAccount,
     fetchObjects,
     loginUser,
     logoutUser, sellShare
@@ -24,7 +24,8 @@ const mapStatetoProps = (state) =>
         corporation:state.corporation,
         shares:state.shares,
         myShares:state.myShares,
-        sale:state.sale
+        sale:state.sale,
+        accountCreation:state.accountCreation
     }
 }
 
@@ -35,7 +36,8 @@ const mapDispatchToProps =(dispatch) =>(
     fetchObjects:() =>dispatch(fetchObjects()),
     buyShare:(data) =>dispatch(buyShare(data)),
     fetchAccount:()=>dispatch(fetchAccount()),
-    sellShare:(data) =>dispatch(sellShare(data))
+    sellShare:(data) =>dispatch(sellShare(data)),
+    createAccount:(data) =>dispatch(createAccount(data))
 });
 
 
@@ -103,7 +105,8 @@ class MainComponent extends Component
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
-                    <Route exact path={'/createAccount'} component={()=><CreateAccount />} />
+                    <Route exact path={'/createAccount'} component={()=><CreateAccount createAccount={this.props.createAccount}
+                     accountCreation={this.props.accountCreation}/>} />
                     <Route exact path={'/user/history'} component={Historypage} />
                     <Route exact path={'/stock'}  component={Stockpage} />
                     <Route path={'/stock/:corpID'} component={Sharepage} />
