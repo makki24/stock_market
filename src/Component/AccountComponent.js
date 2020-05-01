@@ -1,11 +1,47 @@
 import React, {Component} from "react";
-import {Card, CardHeader, CardBody, Table,Button} from "reactstrap";
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    Table,
+    Button,
+    ModalHeader,
+    ModalBody,
+    Form,
+    FormGroup,
+    Label,
+    Input, Modal
+} from "reactstrap";
 import {Loading} from "./LoadingComponent";
 import {Link} from "react-router-dom";
 
 
 class Account extends Component
 {
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            isModOpen:false
+        };
+        this.toggleMod=this.toggleMod.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+    toggleMod()
+    {
+        this.setState(
+            {
+                isModOpen: !this.state.isModOpen
+            }
+        )
+    }
+    handleSubmit(event)
+    {
+        event.preventDefault();
+        this.toggleMod();
+        this.props.addMoney({amount:this.amount.value})
+    }
     render()
     {
             const Holds = () =>
@@ -122,10 +158,31 @@ class Account extends Component
                                             <Link to={'/user/history'}>Trasaction History</Link>
                                         </div>
                                     </div>
+                                    <div className={'row mt-2'}>
+                                        <div className={'col-6'}>
+                                            <Button className={'bg-info'} onClick={this.toggleMod}><span className={'fa fa-money fa-lg'}></span> Add money
+                                            </Button>
+                                        </div>
+                                    </div>
                                 </CardBody>
                             </Card>
                         </div>
                     </div>
+                    <Modal isOpen={this.state.isModOpen} toggle={this.toggleMod}>
+                       <ModalHeader toggle={this.toggleMod}>
+                        Add money
+                       </ModalHeader>
+                       <ModalBody>
+                           <Form onSubmit={this.handleSubmit}>
+                               <FormGroup>
+                                   <Label htmlFor={'Amount'}> Amount(In local currency)</Label>
+                                   <Input id={'Amount'} type={'number'} name={'Amount'} innerRef={(input)=>
+                                   this.amount=input} />
+                               </FormGroup>
+                               <Button type={'submit'} color={'primary'} role={'button'}>Submit</Button>
+                           </Form>
+                       </ModalBody>
+                    </Modal>
                 </div>
             );
     }

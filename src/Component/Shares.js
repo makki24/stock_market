@@ -17,8 +17,7 @@ function RenderShares({shares,auth,buyShare,myShares})
                     <th scope="row">{index + 1-solout}</th>
                     <td>{share.shareName}</td>
                     <td>{share.shareValue}</td>
-                    <td>{share.marketId}</td>
-                    <td>{share.corpId}</td>
+                    <td>{share.marketName}</td>
                     {
                         myShares.isLoading ?<Loading />:
                         auth.isAuthenticated ? <td><Button className={'btn-block'} color={'primary'} onClick={() =>
@@ -42,8 +41,7 @@ function RenderShares({shares,auth,buyShare,myShares})
               <th>#</th>
               <th>Share</th>
               <th>Share Value</th>
-              <th>marketID </th>
-              <th>corpId</th>
+              <th>Market Name </th>
               <th></th>
             </tr>
         </thead>
@@ -81,7 +79,7 @@ class Shares extends Component
                             <Breadcrumb>
                                 <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                                 <BreadcrumbItem ><Link to='/stock'>Company</Link></BreadcrumbItem>
-                                <BreadcrumbItem active>Stocks</BreadcrumbItem>
+                                <BreadcrumbItem active>{this.props.company.corpName}</BreadcrumbItem>
                             </Breadcrumb>
                         </div>
                         <RenderShares shares={this.props.shares} auth={this.props.auth} buyShare={this.props.buyShare} myShares={this.props.myShares}/>

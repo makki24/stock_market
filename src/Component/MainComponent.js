@@ -3,6 +3,7 @@ import Header from "./HeaderComponent";
 import {connect} from "react-redux";
 import {Switch, withRouter,Route,Redirect} from "react-router-dom"
 import {
+    addMoney,
     buyShare, createAccount, fetchAccount,
     fetchObjects,
     loginUser,
@@ -37,7 +38,8 @@ const mapDispatchToProps =(dispatch) =>(
     buyShare:(data) =>dispatch(buyShare(data)),
     fetchAccount:()=>dispatch(fetchAccount()),
     sellShare:(data) =>dispatch(sellShare(data)),
-    createAccount:(data) =>dispatch(createAccount(data))
+    createAccount:(data) =>dispatch(createAccount(data)),
+    addMoney:(data) =>dispatch(addMoney(data))
 });
 
 
@@ -66,7 +68,8 @@ class MainComponent extends Component
         );
         const Accountpage =() =>
             (
-            <Account  account={this.props.account} auth={this.props.auth} sellShare={this.props.sellShare} sale={this.props.sale}/>
+            <Account  account={this.props.account} auth={this.props.auth} sellShare={this.props.sellShare}
+                      sale={this.props.sale} addMoney={this.props.addMoney}/>
             );
         const Historypage =() =>
         {
@@ -87,6 +90,7 @@ class MainComponent extends Component
             const match=props.match;
             return(
                  <Shares shares={this.props.shares.shares.filter((share) => share.corpId ===match.params.corpID)}
+              company={this.props.corporation.company.filter((company) =>company.corpId===match.params.corpID)[0]}
               isLoading={this.props.shares.isLoading}
               errMess={this.props.shares.err}
               auth={this.props.auth}

@@ -64,6 +64,11 @@ export const account =(state={
             details: action.payload,
             detailLoading: false
         };
+        case ActionType.ADDMONEY_FAILED:
+            return {
+                ...state,
+                detailLoading: false
+            }
         default:
             return state;
     }

@@ -383,7 +383,11 @@ export const fetchShares =() => (dispatch)=>
         {
             dispatch(shareSuccess(response));
         })
-        .catch((err) =>{dispatch(shareFailure(err))})
+        .catch((err) =>
+        {
+            alert(err.message);
+            dispatch(shareFailure(err))
+        })
 };
 
 export const shareLoading=()=>
@@ -597,4 +601,46 @@ export const createAccount= (data) =>(dispatch) =>
             alert(err);
             dispatch(accountFailed(err));
         })
+}
+
+export const addMoney =(data) =>(dispatch) =>
+{
+    dispatch(userRequest());
+
+    return fetch(baseUrl+'users/trades/addMoney',
+        {
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                dispatch(fetchUser());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+            dispatch(addMoneyFailed())
+        })
+}
+
+export const addMoneyFailed=() =>
+{
+    return{
+        type:ActionTypes.ADDMONEY_FAILED
+    }
 }
