@@ -76,3 +76,23 @@ address{
     width: auto;
     max-width: 350px;
 }
+.container2
+{
+    overflow: hidden;
+}
+
+.homePageLogo
+{
+    height: auto;
+    max-height: 200px;
+    width: auto;
+    max-width: 250px;
+}
+
+.smhomePageLogo
+{
+    height: auto;
+    max-height: 125px;
+    width: auto;
+    max-width: 225px;
+}

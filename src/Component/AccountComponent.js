@@ -65,12 +65,12 @@ class Account extends Component
                 else
                 {
                     return (
-                        <Table hover>
-                            <thead>
+                        <Table hover className={''}>
+                            <thead className={''}>
                             <tr>
                                 <th>#</th>
                                 <th>Share</th>
-                                <th>Price Bought At</th>
+                                <th className={'d-none d-md-block'}>Price Bought At</th>
                                 <th>Current Value</th>
                                 <th></th>
                             </tr>
@@ -89,7 +89,7 @@ class Account extends Component
                     <tr key={index}>
                         <th scope="row">{index + 1}</th>
                         <td>{stock.shareId}</td>
-                        <td>{stock.priceBoughtAt} $</td>
+                        <td className={'d-none d-md-block'}>{stock.priceBoughtAt} $</td>
                         <td>{stock.shareValue} $</td>
                         <td>{this.props.sale.isLoading?<Loading />:<Button color={'success'} className={'btn-block'} onClick={() =>{
                             console.log(obj);
@@ -131,7 +131,7 @@ class Account extends Component
             return (
                 <div className={"container"}>
                     <div className={"row mt-2"}>
-                        <div className={"col-md-6"}>
+                        <div className={"col-12 col-md-6"}>
                             <Card>
                                 <CardHeader className={'bg-primary text-white'}>My stocks</CardHeader>
                                 <CardBody>
@@ -155,7 +155,7 @@ class Account extends Component
                                     </div>
                                     <div className={'row mt-2'}>
                                         <div className={'col-6'}>
-                                            <Link to={'/user/history'}>Trasaction History</Link>
+                                            <Link to={'/user/history'}>Share Transactions</Link>
                                         </div>
                                     </div>
                                     <div className={'row mt-2'}>

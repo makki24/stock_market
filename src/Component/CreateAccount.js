@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Form,Control,Errors} from "react-redux-form";
-import {Button, Col, FormGroup, Label, Row} from "reactstrap";
+import {Button, Col, Label, Row} from "reactstrap";
 import {Loading} from "./LoadingComponent";
 
 const required = (val) => val && val.length;

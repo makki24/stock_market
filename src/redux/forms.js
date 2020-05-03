@@ -14,3 +14,13 @@ export const CreateAccount = {
     gender:'Male',
     type:'full service'
 }
+
+export const InitialFeedback = {
+    firstname: '',
+    lastname: '',
+    telnum: '',
+    email: '',
+    agree: false,
+    contactType: 'Tel.',
+    message: ''
+}

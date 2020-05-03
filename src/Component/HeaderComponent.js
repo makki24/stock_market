@@ -12,7 +12,7 @@ import {
     ModalBody,
     Form, FormGroup, Label, Input
 } from "reactstrap";
-import {Link, NavLink, Redirect} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 class Header extends Component
 {
     constructor(props)

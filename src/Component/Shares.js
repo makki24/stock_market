@@ -8,7 +8,7 @@ function RenderShares({shares,auth,buyShare,myShares})
     var solout=0;
     const share =shares.map((share,index) =>
     {
-        var obj=new Object();
+        var obj={}
         obj.shareId=share.shareId;
         if(share.soldOut===0)
         {
@@ -32,6 +32,7 @@ function RenderShares({shares,auth,buyShare,myShares})
         else
         {
             solout++;
+            return (<div></div>);
         }
     })
     return(

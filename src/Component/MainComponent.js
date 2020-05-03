@@ -15,6 +15,8 @@ import StockComponent from "./StockComponent";
 import Shares from "./Shares";
 import HomeComponent from "./HomeComponent";
 import CreateAccount from "./CreateAccount";
+import Contact from "./ContactUs";
+import {actions} from "react-redux-form";
 
 
 const mapStatetoProps = (state) =>
@@ -39,7 +41,8 @@ const mapDispatchToProps =(dispatch) =>(
     fetchAccount:()=>dispatch(fetchAccount()),
     sellShare:(data) =>dispatch(sellShare(data)),
     createAccount:(data) =>dispatch(createAccount(data)),
-    addMoney:(data) =>dispatch(addMoney(data))
+    addMoney:(data) =>dispatch(addMoney(data)),
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
 
@@ -111,6 +114,8 @@ class MainComponent extends Component
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
                     <Route exact path={'/createAccount'} component={()=><CreateAccount createAccount={this.props.createAccount}
                      accountCreation={this.props.accountCreation}/>} />
+                     <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}
+                            postFeedback={this.props.postFeedback} />} />
                     <Route exact path={'/user/history'} component={Historypage} />
                     <Route exact path={'/stock'}  component={Stockpage} />
                     <Route path={'/stock/:corpID'} component={Sharepage} />
