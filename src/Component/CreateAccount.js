@@ -18,11 +18,24 @@ class CreateAccount extends Component
 
     handleSubmit(values)
     {
-        alert("Current State is: " + JSON.stringify(values));
-        this.props.createAccount(values);
+
+        if(values.username && values.lastname && values.password)
+        {
+            alert("Current State is: " + JSON.stringify(values));
+            this.props.createAccount(values);
+        }
+        else
+        {
+            alert("username, lastname and password is compulsory");
+        }
     }
     render()
     {
+        const countr=this.props.country.country.map((item) =>{
+            return(
+                <option>{item.name}</option>
+            )
+        });
         if(this.props.accountCreation.isLoading===true)
             return (
                 <div className={'container'}>
@@ -177,25 +190,10 @@ class CreateAccount extends Component
                                         <Row className="form-group">
                                             <Label htmlFor="country" md={3}>Country</Label>
                                             <Col md={9}>
-                                                <Control.text model=".country" id="country" name="country"
-                                                              placeholder="Country"
-                                                              className="form-control"
-                                                              validators={{
-                                                                  required,
-                                                                  minLength: minLength(3),
-                                                                  maxLength: maxLength(15)
-                                                              }}
-                                                />
-                                                <Errors
-                                                    className="text-danger"
-                                                    model=".country"
-                                                    show="touched"
-                                                    messages={{
-                                                        required: 'Required  ',
-                                                        minLength: 'Must be greater than 2 Characters ',
-                                                        maxLength: 'Must be 15 Characters or less '
-                                                    }}
-                                                />
+                                                <Control.select model={'.country'} name={'country'}
+                                                         className={'form-control'}>
+                                                {countr}
+                                                </Control.select>
                                             </Col>
                                         </Row>
                                     </div>

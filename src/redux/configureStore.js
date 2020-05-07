@@ -10,6 +10,7 @@ import {sale} from "./sales";
 import {createForms} from "react-redux-form";
 import {CreateAccount, InitialFeedback} from "./forms";
 import {accountCreation} from "./accountCreation";
+import {country} from "./country";
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -21,6 +22,7 @@ export const ConfigureStore = () => {
             myShares:myShares,
             sale:sale,
             accountCreation:accountCreation,
+            country:country,
             ...createForms({
                 createaccount: CreateAccount,
                 feedback: InitialFeedback

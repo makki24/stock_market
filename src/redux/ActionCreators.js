@@ -309,8 +309,32 @@ export const fetchObjects =() =>(dispatch) =>
 {
     dispatch(fetchCorporation());
     dispatch(fetchShares());
+    dispatch(fetchCountry());
 };
 
+export const fetchCountry =() =>(dispatch) =>
+{
+    return fetch(baseUrl+'country')
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{throw (err)})
+        .then(response =>response.json())
+        .then((response) =>
+        {
+            dispatch(countrySuccess(response));
+        })
+        .catch((err) =>{console.log(err)})
+}
 export const fetchCorporation =() =>(dispatch) =>
 {
     dispatch(corpLoading());
@@ -348,6 +372,14 @@ export const corpSuccess =(response) =>
 {
     return{
         type:ActionTypes.CORP_SUCCESS,
+        payload:response
+    }
+};
+
+export const countrySuccess =(response) =>
+{
+    return{
+        type:ActionTypes.COUNTRY_SUCCESS,
         payload:response
     }
 };

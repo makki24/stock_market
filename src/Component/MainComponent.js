@@ -29,7 +29,8 @@ const mapStatetoProps = (state) =>
         shares:state.shares,
         myShares:state.myShares,
         sale:state.sale,
-        accountCreation:state.accountCreation
+        accountCreation:state.accountCreation,
+        country:state.country
     }
 }
 
@@ -114,7 +115,7 @@ class MainComponent extends Component
                     <Route path="/home" component={HomePage} />
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
                     <Route exact path={'/createAccount'} component={()=><CreateAccount createAccount={this.props.createAccount}
-                     accountCreation={this.props.accountCreation}/>} />
+                     accountCreation={this.props.accountCreation} country={this.props.country}/>} />
                      <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}
                             postFeedback={this.props.postFeedback} />} />
                     <Route exact path={'/user/history'} component={Historypage} />

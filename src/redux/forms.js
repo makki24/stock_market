@@ -4,7 +4,7 @@ export const CreateAccount = {
     username:'',
     phone:'',
     address:'',
-    country:'',
+    country:'Bandrinka',
     password:'',
     rpassword:'',
     broker:false,
