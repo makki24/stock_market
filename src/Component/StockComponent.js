@@ -78,7 +78,7 @@ class StockComponent extends Component
                             <hr />
                         </div>
                     </div>
-                    <div className={'row'}>
+                    <div className={'row mb-4'}>
                         {company}
                     </div>
                 </div>

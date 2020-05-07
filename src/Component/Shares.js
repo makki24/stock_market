@@ -80,7 +80,7 @@ class Shares extends Component
                             <Breadcrumb>
                                 <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                                 <BreadcrumbItem ><Link to='/stock'>Company</Link></BreadcrumbItem>
-                                <BreadcrumbItem active>{this.props.company.corpName}</BreadcrumbItem>
+                                <BreadcrumbItem active>{this.props.company?this.props.company.corpName:null}</BreadcrumbItem>
                             </Breadcrumb>
                         </div>
                         <RenderShares shares={this.props.shares} auth={this.props.auth} buyShare={this.props.buyShare} myShares={this.props.myShares}/>

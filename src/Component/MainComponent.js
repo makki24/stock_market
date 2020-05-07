@@ -17,6 +17,7 @@ import HomeComponent from "./HomeComponent";
 import CreateAccount from "./CreateAccount";
 import Contact from "./ContactUs";
 import {actions} from "react-redux-form";
+import Footer from "./FooterComponent";
 
 
 const mapStatetoProps = (state) =>
@@ -121,6 +122,7 @@ class MainComponent extends Component
                     <Route path={'/stock/:corpID'} component={Sharepage} />
                     <Redirect to="/home" />
                 </Switch>
+                <Footer />
             </div>
         )
     }
