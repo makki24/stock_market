@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "PORT=3001 /home/makki24/d:/web-development/college_project/stock_market/node_modules/.bin/react-scripts start",
-    "build": "react-scripts build",
+    "build": "/home/makki24/d:/web-development/college_project/stock_market/node_modules/.bin/react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

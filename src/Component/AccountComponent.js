@@ -128,6 +128,12 @@ class Account extends Component
                     )
                 }
             }
+            if(this.props.account.holds.success===false)
+                return (
+                    <div className={'container'}>
+                        <h1>Please Logout and login</h1>
+                    </div>
+                )
             return (
                 <div className={"container"}>
                     <div className={"row mt-2"}>

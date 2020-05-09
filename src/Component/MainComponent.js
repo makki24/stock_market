@@ -54,9 +54,9 @@ class MainComponent extends Component
     componentDidMount()
     {
         this.props.fetchObjects();
-        if(localStorage.getItem('creds'))
+        if(this.props.auth.isAuthenticated)
         {
-            this.props.loginUser(JSON.parse(localStorage.getItem('creds')));
+            this.props.fetchAccount();
         }
     }
 
