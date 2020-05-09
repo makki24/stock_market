@@ -24,7 +24,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "/home/makki24/d:/web-development/college_project/stock_market/node_modules/.bin/react-scripts start",
+    "start": "PORT=3001 /home/makki24/d:/web-development/college_project/stock_market/node_modules/.bin/react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

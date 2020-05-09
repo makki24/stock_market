@@ -82,7 +82,7 @@ class Account extends Component
                     )
                 }
             }
-            const stocks = this.props.account.holds.map((stock, index) =>
+            const stocks = this.props.account.holds.success!==false ? this.props.account.holds.map((stock, index) =>
             {
                 var obj={shareId:stock.shareId};
                 return (
@@ -96,7 +96,7 @@ class Account extends Component
                             this.props.sellShare(obj)}}>Sell</Button> }</td>
                     </tr>
                 )
-            })
+            }):'Please logout and login';
             const Acc = () =>
             {
                 console.log(this.props.account);

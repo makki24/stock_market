@@ -6,7 +6,7 @@ import {
     addMoney,
     buyShare, createAccount, fetchAccount,
     fetchObjects,
-    loginUser,
+    loginUser, logoutSuccess,
     logoutUser, sellShare
 } from "../redux/ActionCreators";
 import Account from "./AccountComponent";
@@ -44,6 +44,7 @@ const mapDispatchToProps =(dispatch) =>(
     sellShare:(data) =>dispatch(sellShare(data)),
     createAccount:(data) =>dispatch(createAccount(data)),
     addMoney:(data) =>dispatch(addMoney(data)),
+    logoutSuccess:() =>dispatch(logoutSuccess()),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
@@ -53,9 +54,9 @@ class MainComponent extends Component
     componentDidMount()
     {
         this.props.fetchObjects();
-        if(this.props.auth.isAuthenticated)
+        if(localStorage.getItem('creds'))
         {
-            this.props.fetchAccount();
+            this.props.loginUser(JSON.parse(localStorage.getItem('creds')));
         }
     }
 

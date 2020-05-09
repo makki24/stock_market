@@ -8,12 +8,12 @@ const TransactionComponent =(props) =>
     {
         return(
                 <tr key={index}>
-                  <th scope="row">{index+1}</th>
+                  <th scope="row"  className={'d-none d-md-block'}>{index+1}</th>
                   <td>{stock.shareName}</td>
                   <td>{stock.priceBoughtAt} $</td>
-                  <td>{stock.priceSoldAt?stock.priceSoldAt+' $':null}</td>
+                  <td className={'d-none d-md-block'}>{stock.priceSoldAt?stock.priceSoldAt+' $':null}</td>
                   <td>{new Date(stock.timeBoughtAt).toLocaleDateString()+" "+new Date(stock.timeBoughtAt).toLocaleTimeString()}</td>
-                  <td>{stock.timeSoldAt?new Date(stock.timeSoldAt).toLocaleDateString()+" "+new Date(stock.timeSoldAt).toLocaleTimeString():null}</td>
+                  <td className={'d-none d-md-block'}>{stock.timeSoldAt?new Date(stock.timeSoldAt).toLocaleDateString()+" "+new Date(stock.timeSoldAt).toLocaleTimeString():null}</td>
                 </tr>
             )
 
@@ -47,15 +47,15 @@ const TransactionComponent =(props) =>
                         <Card>
                             <CardHeader className={'bg-primary text-white'}>My Transactions</CardHeader>
                             <CardBody>
-                                <Table hover>
-                                    <thead>
+                                <Table  hover>
+                                    <thead className={'bg-info'}>
                                         <tr>
-                                          <th>#</th>
+                                          <th className={'d-none d-md-block'}>#</th>
                                           <th>Share</th>
                                           <th>Price Bought At</th>
-                                          <th>Price Sold At</th>
+                                          <th className={'d-none d-md-block'}>Price Sold At</th>
                                           <th>Time Bought At</th>
-                                          <th>Time Sold At</th>
+                                          <th className={'d-none d-md-block'}>Time Sold At</th>
                                         </tr>
                                     </thead>
                                     <tbody className={'text-align-center'}>

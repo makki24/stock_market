@@ -18,6 +18,7 @@ function RenderShares({shares,auth,buyShare,myShares})
                     <td>{share.shareName}</td>
                     <td>{share.shareValue}</td>
                     <td>{share.marketName}</td>
+                    <td>{share.name}</td>
                     {
                         myShares.isLoading ?<Loading />:
                         auth.isAuthenticated ? <td><Button className={'btn-block'} color={'primary'} onClick={() =>
@@ -43,6 +44,7 @@ function RenderShares({shares,auth,buyShare,myShares})
               <th>Share</th>
               <th>Share Value</th>
               <th>Market Name </th>
+              <th>Market Country</th>
               <th></th>
             </tr>
         </thead>
