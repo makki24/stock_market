@@ -24,3 +24,9 @@ export const InitialFeedback = {
     contactType: 'Tel.',
     message: ''
 }
+
+export const CorporationForm ={
+    corpId:'',
+    corpName:'',
+    corpType:'publicly held'
+}

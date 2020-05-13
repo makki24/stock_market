@@ -1,6 +1,8 @@
 import {baseUrl} from "../shared/baseUrl";
 import * as ActionTypes from "./ActionTypes";
 import {actions} from "react-redux-form";
+const axios = require("axios");
+
 
 export const requestLogin =() =>
 {
@@ -674,5 +676,56 @@ export const addMoneyFailed=() =>
 {
     return{
         type:ActionTypes.ADDMONEY_FAILED
+    }
+}
+
+export const insertCorp =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'corporation',
+        {
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully inserted Corporation")
+                dispatch(insertCorpSuccess(data.formData));
+                dispatch(actions.reset('corporationForm'))
+                dispatch(fetchCorporation());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}
+
+export const insertCorpSuccess=(formData) =>
+{
+    console.log("image uploaded");
+    axios.post(baseUrl + 'upload', formData, {headers: {
+                    'content-type': 'multipart/form-data'
+                }})
+                .then((response) =>
+                {
+                    console.log("The file "+this.state.file.name+" successfully uploaded");
+                }).catch((error) =>
+            {
+            });
+    return {
+        type:ActionTypes.INSERT_CORP
     }
 }

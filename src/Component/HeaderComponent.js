@@ -112,9 +112,8 @@ class Header extends Component
                    <div className="col-12 col-sm-6">
                        <h1 >Mind Trade</h1>
                        <p>
-                           <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum et fuga iure minus optio
-                               quaerat quasi quos sequi! Accusamus delectus ipsa labore maxime minima minus nam odit
-                               perspiciatis provident quo!</span>
+                           <span>A stock trading platform which offers quick and easy stock trading to its customers.
+                                    Register now and join us in your journey in becoming next Warren Buffet.</span>
                        </p>
                    </div>
                </div>
@@ -143,7 +142,7 @@ class Header extends Component
                            </Label>
                        </FormGroup>
                        <Button type={'submit'} color={'primary'} role={'button'}>Submit</Button>
-                       <Button onClick={() => {window.location.href="createAccount"}}  color={'success'} role={'button'} className={'ml-2'}>Register</Button>
+                       <Link to={'/createAccount'} style={{textDecoration:'none'}}><Button onClick={() => {this.toggleMod()}}  color={'success'} role={'button'} className={'ml-2'}>Register</Button></Link>
                    </Form>
                </ModalBody>
            </Modal>

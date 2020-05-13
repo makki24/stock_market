@@ -9,7 +9,7 @@ function RenderCompany({company})
     return(
         <Card className={'company-list'}>
             <Link to={`/stock/${company.corpId}`} style={{textDecoration:'none',color:'black'}}>
-            <CardImg className={'comapany-img'} width="100%" src={baseUrl+company.image} alt={company.corpName} />
+            <CardImg className={''} height={'160'} width={'250'}  src={baseUrl+company.image} alt={company.corpName} />
             <CardHeader style={{textAlign:'center',fontWeight:'bold',color:'white',background:'blue'}}>
                 {company.corpName}
             </CardHeader>

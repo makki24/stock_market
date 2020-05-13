@@ -221,7 +221,7 @@ class CreateAccount extends Component
                                             </Col>
                                         </Row>
                                     </div>
-                                    <div className={'col-3'}>
+                                    <div className={'col-8 col-md-3'}>
                                         <Row className={'form-group'}>
                                             <Label htmlFor="type" md={4}>Broker Type</Label>
                                             <Col md={8}>
@@ -242,7 +242,7 @@ class CreateAccount extends Component
                                             <Col md={4}>
                                                 <Control.text model=".LicenceNumber" id="LicenceNumber"
                                                               name="LicenceNumber"
-                                                              placeholder="LicenceNumber"
+                                                              placeholder="Only for broker"
                                                               className="form-control"
                                                               validators={{
                                                                   maxLength: maxLength(12)
@@ -266,7 +266,7 @@ class CreateAccount extends Component
                                             <Label htmlFor={"company"} md={2}>Company</Label>
                                             <Col md={3}>
                                                 <Control.text model=".company" id="company" name="company"
-                                                              placeholder="company"
+                                                              placeholder="Only for broker"
                                                               className="form-control"
                                                               validators={{
                                                                   maxLength: maxLength(12)
@@ -283,12 +283,12 @@ class CreateAccount extends Component
                                             </Col>
                                         </Row>
                                     </div>
-                                    <div className={'col-3'}>
+                                    <div className={'col-6 col-md-3'}>
                                         <Row className={'form-group'}>
                                             <Label htmlFor={"commission"} md={4}>commission</Label>
                                             <Col md={8}>
                                                 <Control.text model=".commission" id="commission" name="commission"
-                                                              placeholder="commission"
+                                                              placeholder="Only for broker"
                                                               className="form-control"
                                                               validators={{
                                                                   maxLength: maxLength(12)
@@ -328,7 +328,7 @@ class CreateAccount extends Component
                                 <div className={'row'}>
                                     <div className={'col-6'}>
                                         <Row className="form-group">
-                                            <Label htmlFor="password" md={3}>Enter Password</Label>
+                                            <Label htmlFor="password" md={3}>Enter Your Password</Label>
                                             <Col md={9}>
                                                 <Control.password model=".password" id="password" name="password"
                                                                   placeholder="Password"

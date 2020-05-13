@@ -134,6 +134,13 @@ class Account extends Component
                         <h1>Please Logout and login</h1>
                     </div>
                 )
+            const Admin =() =>
+            {
+                if(this.props.auth.creds.username==='admin')
+                  return  (<Link to={'/admin'} style ={{color:'brown'}}>Admin Page</Link>)
+                else
+                    return <div></div>
+            }
             return (
                 <div className={"container"}>
                     <div className={"row mt-2"}>
@@ -162,6 +169,9 @@ class Account extends Component
                                     <div className={'row mt-2'}>
                                         <div className={'col-6'}>
                                             <Link to={'/user/history'}>Share Transactions</Link>
+                                        </div>
+                                        <div>
+                                            <Admin />
                                         </div>
                                     </div>
                                     <div className={'row mt-2'}>

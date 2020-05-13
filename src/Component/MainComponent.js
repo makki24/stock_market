@@ -5,7 +5,7 @@ import {Switch, withRouter,Route,Redirect} from "react-router-dom"
 import {
     addMoney,
     buyShare, createAccount, fetchAccount,
-    fetchObjects,
+    fetchObjects, insertCorp,
     loginUser, logoutSuccess,
     logoutUser, sellShare
 } from "../redux/ActionCreators";
@@ -18,6 +18,7 @@ import CreateAccount from "./CreateAccount";
 import Contact from "./ContactUs";
 import {actions} from "react-redux-form";
 import Footer from "./FooterComponent";
+import AdminComponent from "./AdminComponent";
 
 
 const mapStatetoProps = (state) =>
@@ -45,6 +46,7 @@ const mapDispatchToProps =(dispatch) =>(
     createAccount:(data) =>dispatch(createAccount(data)),
     addMoney:(data) =>dispatch(addMoney(data)),
     logoutSuccess:() =>dispatch(logoutSuccess()),
+    insertCorp:(data) =>dispatch(insertCorp(data)),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
@@ -72,11 +74,25 @@ class MainComponent extends Component
                 }} />
           )} />
         );
+        const PrivateRoute2 = ({ component: Component, ...rest }) => (
+          <Route {...rest} render={(props) => (
+              (this.props.auth.isAuthenticated?this.props.auth.creds.username==='admin':false)
+              ? <Component {...props} />
+              : <Redirect to={{
+                  pathname: '/home',
+                  state: { from: props.location }
+                }} />
+          )} />
+        );
         const Accountpage =() =>
             (
             <Account  account={this.props.account} auth={this.props.auth} sellShare={this.props.sellShare}
                       sale={this.props.sale} addMoney={this.props.addMoney}/>
             );
+        const Adminpage=() =>
+            (
+                <AdminComponent insertCorp={this.props.insertCorp}/>
+            )
         const Historypage =() =>
         {
             return(
@@ -115,6 +131,7 @@ class MainComponent extends Component
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <PrivateRoute exact path={'/user'} component={Accountpage}/>
+                    <PrivateRoute2 exact path={'/admin'} component={Adminpage}/>
                     <Route exact path={'/createAccount'} component={()=><CreateAccount createAccount={this.props.createAccount}
                      accountCreation={this.props.accountCreation} country={this.props.country}/>} />
                      <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}
