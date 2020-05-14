@@ -5,7 +5,7 @@ import {Switch, withRouter,Route,Redirect} from "react-router-dom"
 import {
     addMoney,
     buyShare, createAccount, fetchAccount,
-    fetchObjects, insertCorp,
+    fetchObjects, insertCorp, insertCountry, insertMarket,
     loginUser, logoutSuccess,
     logoutUser, sellShare
 } from "../redux/ActionCreators";
@@ -47,6 +47,8 @@ const mapDispatchToProps =(dispatch) =>(
     addMoney:(data) =>dispatch(addMoney(data)),
     logoutSuccess:() =>dispatch(logoutSuccess()),
     insertCorp:(data) =>dispatch(insertCorp(data)),
+    insertCountry:(data) =>dispatch(insertCountry(data)),
+    insertMarket:(data) =>dispatch(insertMarket(data)),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
@@ -91,7 +93,8 @@ class MainComponent extends Component
             );
         const Adminpage=() =>
             (
-                <AdminComponent insertCorp={this.props.insertCorp}/>
+                <AdminComponent insertCorp={this.props.insertCorp} insertCountry={this.props.insertCountry}
+                country={this.props.country} insertMarket={this.props.insertMarket}/>
             )
         const Historypage =() =>
         {

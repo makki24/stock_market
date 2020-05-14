@@ -729,3 +729,103 @@ export const insertCorpSuccess=(formData) =>
         type:ActionTypes.INSERT_CORP
     }
 }
+
+export const insertCountry =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'country',
+        {
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully inserted Country")
+                dispatch(actions.reset('countryForm'))
+                dispatch(fetchCountry());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}
+
+export const insertMarket =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'market',
+        {
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully inserted Market")
+                dispatch(actions.reset('marketForm'))
+                dispatch(fetchMarket());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}
+
+export const fetchMarket =() =>(dispatch) =>
+{
+    dispatch(corpLoading());
+
+    return fetch(baseUrl+'market')
+        .then((response) =>
+        {
+            if(response.ok)
+            {
+                return response;
+            }
+            else
+            {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw (error) ;
+            }
+        },(err) =>{throw (err)})
+        .then(response =>response.json())
+        .then((response) =>
+        {
+            dispatch(markSuccess(response));
+        })
+        .catch((err) =>{})
+};
+
+export const markSuccess =(response) =>
+{
+    return{
+        type:ActionTypes.MARK_SUCCESS,
+        payload:response
+    }
+};

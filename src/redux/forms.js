@@ -30,3 +30,15 @@ export const CorporationForm ={
     corpName:'',
     corpType:'publicly held'
 }
+
+export const CountryForm ={
+    name:'',
+    population:'',
+    commision:''
+}
+
+export const MarketForm ={
+    marketName:'',
+    workingDays:'',
+    name:'Bandrinka'
+}

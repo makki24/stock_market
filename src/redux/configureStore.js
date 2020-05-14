@@ -8,9 +8,10 @@ import {shares} from "./shares";
 import {myShares} from "./myShares";
 import {sale} from "./sales";
 import {createForms} from "react-redux-form";
-import {CreateAccount, InitialFeedback,CorporationForm} from "./forms";
+import {CreateAccount, InitialFeedback, CorporationForm, CountryForm, MarketForm} from "./forms";
 import {accountCreation} from "./accountCreation";
 import {country} from "./country";
+import {market} from "./market";
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -23,10 +24,13 @@ export const ConfigureStore = () => {
             sale:sale,
             accountCreation:accountCreation,
             country:country,
+            market:market,
             ...createForms({
                 createaccount: CreateAccount,
                 feedback: InitialFeedback,
-                corporationForm: CorporationForm
+                corporationForm: CorporationForm,
+                countryForm:CountryForm,
+                marketForm:MarketForm
             })
         }),
         applyMiddleware(thunk, logger)
