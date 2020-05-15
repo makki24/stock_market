@@ -266,6 +266,85 @@ class CountryForm extends Component
                                             </Col>
                                         </Row>
                                     </div>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor={'currName'} md={4}>Currency Name</Label>
+                                            <Col md={8}>
+                                                <Control.text model=".currName" id="currName" name="currName"
+                                                              placeholder="Currency Name"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  required,
+                                                                  minLength: minLength(2),
+                                                                  maxLength: maxLength(10)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".currName"
+                                                    show="touched"
+                                                    messages={{
+                                                        required: 'Required. ',
+                                                        minLength: 'Must be greater than 2 characters ',
+                                                        maxLength: 'Must be 10 characters or less'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className={'col-6'}>
+                                        <Row className={'form-group'}>
+                                            <Label htmlFor={"exchageValue"} md={3}>Exchange Value</Label>
+                                            <Col md={9}>
+                                                <Control.text model=".exchageValue" id="exchageValue" name="exchageValue"
+                                                              placeholder="Exchange value"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  isNumber,
+                                                                  maxLength: maxLength(12)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".exchageValue"
+                                                    show="touched"
+                                                    messages={{
+                                                        isNumber:"Must be a number",
+                                                        ranges:"Values must be between 0 and 100",
+                                                        maxLength: 'Must be 12 Characters or less '
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor={'curId'} md={4}>Currency Id</Label>
+                                            <Col md={8}>
+                                                <Control.text model=".curId" id="curId" name="curId"
+                                                              placeholder="Currency Id"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  required,
+                                                                  minLength: minLength(2),
+                                                                  maxLength: maxLength(10)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".curId"
+                                                    show=""
+                                                    messages={{
+                                                        required: 'Required. ',
+                                                        minLength: 'Must be greater than 2 characters ',
+                                                        maxLength: 'Must be 10 characters or less'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </div>
                                 </div>
                                 <div className={'row'}>
                                     <div className={'col-6'}>
@@ -432,6 +511,174 @@ class MarketForm extends Component
         )
     }
 }
+
+class ShareInsertForm extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(values)
+    {
+        let obj={};
+        obj.marketId=this.props.market.market.filter((item) => item.marketName===values.market)[0].marketId;
+        obj.corpId=this.props.corporation.company.filter((item) => item.corpName===values.corporation)[0].corpId;
+        obj={...obj,...values}
+        //alert(JSON.stringify(obj));
+        this.props.insertShare(obj);
+    }
+
+    render()
+    {
+        const market=this.props.market.market.map((item) =>{
+            return(
+                <option>{item.marketName}</option>
+            )
+        });
+        const corporation=this.props.corporation.company.map((item) =>{
+            return(
+                <option>{item.corpName}</option>
+            )
+        });
+        return (
+            <div className={'container'}>
+                 <div className={'row mt-4'}>
+                        <div className={'col-12'}>
+                            <h3>Insert Share</h3>
+                            <hr/>
+                        </div>
+                  </div>
+                 <div className={'row'}>
+                     <div className={'col-12'}>
+                         <Form model={'shareInsertForm'} onSubmit={(values) => this.handleSubmit(values)}>
+                             <div className={'row'}>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor={'shareName'} md={3}>Share Name</Label>
+                                            <Col md={9}>
+                                                <Control.text model=".shareName" id="shareName" name="shareName"
+                                                              placeholder="Share Name"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  required,
+                                                                  minLength: minLength(3),
+                                                                  maxLength: maxLength(10)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".shareName"
+                                                    show="touched"
+                                                    messages={{
+                                                        required: 'Required. ',
+                                                        minLength: 'Must be greater than 3 characters ',
+                                                        maxLength: 'Must be 10 characters or less'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                    <div className={'col-6'}>
+                                        <Row className={'form-group'}>
+                                            <Label htmlFor={'shareValue'} md={4}>Share Value</Label>
+                                            <Col md={8}>
+                                                <Control.text model=".shareValue" id="shareValue" name="shareValue"
+                                                              placeholder="Share Value"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  required,
+                                                                  isNumber,
+                                                                  minLength: minLength(2),
+                                                                  maxLength: maxLength(10)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".shareValue"
+                                                    show="touched"
+                                                    messages={{
+                                                        required: 'Required. ',
+                                                        isNumber: 'Must be a number',
+                                                        minLength: 'Must be greater than 2 digits ',
+                                                        maxLength: 'Must be 10 digits or less'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="market" md={3}>Market</Label>
+                                            <Col md={9}>
+                                                <Control.select model={'.market'} name={'market'}
+                                                         className={'form-control'}>
+                                                {market}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="corporation" md={4}>Corporation</Label>
+                                            <Col md={8}>
+                                                <Control.select model={'.corporation'} name={'corporation'}
+                                                         className={'form-control'}>
+                                                {corporation}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor={'shareId'} md={3}>Share Id</Label>
+                                            <Col md={9}>
+                                                <Control.text model=".shareId" id="shareId" name="shareId"
+                                                              placeholder="Share Id"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  required,
+                                                                  minLength: minLength(2),
+                                                                  maxLength: maxLength(10)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".shareId"
+                                                    show="touched"
+                                                    messages={{
+                                                        required: 'Required. ',
+                                                        minLength: 'Must be greater than 2 characters ',
+                                                        maxLength: 'Must be 10 characters or less'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Col md={{size: 4, offset: 3}}>
+                                                <Button type="submit" color="primary" className={'btn-block'}>
+                                                    Submit
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+                         </Form>
+                     </div>
+                 </div>
+            </div>
+        );
+    }
+}
 class AdminComponent extends Component
 {
     render()
@@ -441,6 +688,8 @@ class AdminComponent extends Component
                 <CorpForm insertCorp={this.props.insertCorp} />
                 <CountryForm insertCountry={this.props.insertCountry}/>
                 <MarketForm country={this.props.country} insertMarket={this.props.insertMarket}/>
+                <ShareInsertForm market={this.props.market} corporation={this.props.corporation}
+                insertShare={this.props.insertShare}/>
             </div>
         )
     }

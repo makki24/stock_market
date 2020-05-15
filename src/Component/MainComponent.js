@@ -4,10 +4,10 @@ import {connect} from "react-redux";
 import {Switch, withRouter,Route,Redirect} from "react-router-dom"
 import {
     addMoney,
-    buyShare, createAccount, fetchAccount,
+    buyShare, createAccount, fetchAccount, fetchMarket,
     fetchObjects, insertCorp, insertCountry, insertMarket,
     loginUser, logoutSuccess,
-    logoutUser, sellShare
+    logoutUser, sellShare,insertShare
 } from "../redux/ActionCreators";
 import Account from "./AccountComponent";
 import TransactionComponent from "./TransactionComponent";
@@ -31,7 +31,8 @@ const mapStatetoProps = (state) =>
         myShares:state.myShares,
         sale:state.sale,
         accountCreation:state.accountCreation,
-        country:state.country
+        country:state.country,
+        market:state.market
     }
 }
 
@@ -49,6 +50,8 @@ const mapDispatchToProps =(dispatch) =>(
     insertCorp:(data) =>dispatch(insertCorp(data)),
     insertCountry:(data) =>dispatch(insertCountry(data)),
     insertMarket:(data) =>dispatch(insertMarket(data)),
+    fetchMarket:() => dispatch(fetchMarket()),
+    insertShare:(data)=> dispatch(insertShare(data)),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
@@ -61,6 +64,8 @@ class MainComponent extends Component
         if(this.props.auth.isAuthenticated)
         {
             this.props.fetchAccount();
+            if(this.props.auth.creds.username==='admin')
+                this.props.fetchMarket();
         }
     }
 
@@ -94,7 +99,8 @@ class MainComponent extends Component
         const Adminpage=() =>
             (
                 <AdminComponent insertCorp={this.props.insertCorp} insertCountry={this.props.insertCountry}
-                country={this.props.country} insertMarket={this.props.insertMarket}/>
+                country={this.props.country} insertMarket={this.props.insertMarket} market={this.props.market}
+                corporation={this.props.corporation} insertShare={this.props.insertShare}/>
             )
         const Historypage =() =>
         {

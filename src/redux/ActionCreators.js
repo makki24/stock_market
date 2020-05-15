@@ -829,3 +829,36 @@ export const markSuccess =(response) =>
         payload:response
     }
 };
+
+export const insertShare =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'shares',
+        {
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully inserted a Share")
+                dispatch(actions.reset('shareInsertForm'))
+                dispatch(fetchShares());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}

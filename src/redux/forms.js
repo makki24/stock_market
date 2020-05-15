@@ -34,11 +34,22 @@ export const CorporationForm ={
 export const CountryForm ={
     name:'',
     population:'',
-    commision:''
+    commision:'',
+    currName:'',
+    exchageValue:'',
+    curId:''
 }
 
 export const MarketForm ={
     marketName:'',
     workingDays:'',
     name:'Bandrinka'
+}
+
+export const ShareInsertForm={
+    shareName:'',
+    shareValue:'',
+    market:'lalu',
+    corporation:'Ali babu',
+    shareId:''
 }
