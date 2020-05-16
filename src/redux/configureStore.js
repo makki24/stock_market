@@ -8,7 +8,15 @@ import {shares} from "./shares";
 import {myShares} from "./myShares";
 import {sale} from "./sales";
 import {createForms} from "react-redux-form";
-import {CreateAccount, InitialFeedback, CorporationForm, CountryForm, MarketForm, ShareInsertForm} from "./forms";
+import {
+    CreateAccount,
+    InitialFeedback,
+    CorporationForm,
+    CountryForm,
+    MarketForm,
+    ShareInsertForm,
+    ShareUpdateForm
+} from "./forms";
 import {accountCreation} from "./accountCreation";
 import {country} from "./country";
 import {market} from "./market";
@@ -31,7 +39,8 @@ export const ConfigureStore = () => {
                 corporationForm: CorporationForm,
                 countryForm:CountryForm,
                 marketForm:MarketForm,
-                shareInsertForm:ShareInsertForm
+                shareInsertForm:ShareInsertForm,
+                shareUpdateForm:ShareUpdateForm
             })
         }),
         applyMiddleware(thunk, logger)

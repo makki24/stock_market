@@ -7,7 +7,7 @@ import {
     buyShare, createAccount, fetchAccount, fetchMarket,
     fetchObjects, insertCorp, insertCountry, insertMarket,
     loginUser, logoutSuccess,
-    logoutUser, sellShare,insertShare
+    logoutUser, sellShare, insertShare, updateShare
 } from "../redux/ActionCreators";
 import Account from "./AccountComponent";
 import TransactionComponent from "./TransactionComponent";
@@ -52,6 +52,7 @@ const mapDispatchToProps =(dispatch) =>(
     insertMarket:(data) =>dispatch(insertMarket(data)),
     fetchMarket:() => dispatch(fetchMarket()),
     insertShare:(data)=> dispatch(insertShare(data)),
+    updateShare:(data) =>dispatch(updateShare(data)),
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
@@ -100,7 +101,8 @@ class MainComponent extends Component
             (
                 <AdminComponent insertCorp={this.props.insertCorp} insertCountry={this.props.insertCountry}
                 country={this.props.country} insertMarket={this.props.insertMarket} market={this.props.market}
-                corporation={this.props.corporation} insertShare={this.props.insertShare}/>
+                corporation={this.props.corporation} insertShare={this.props.insertShare} shares={this.props.shares}
+                updateShare={this.props.updateShare}/>
             )
         const Historypage =() =>
         {

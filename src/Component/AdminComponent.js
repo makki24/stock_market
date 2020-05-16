@@ -23,7 +23,7 @@ class CorpForm extends Component
 
     handleSubmit(values)
     {
-        if(this.state.file)
+        if(this.state.file && values.corpId && values.corpName)
         {
             const formData = new FormData();
             formData.append('imageFile', this.state.file);
@@ -36,8 +36,10 @@ class CorpForm extends Component
             obj={...obj,...values,formData};
             this.props.insertCorp(obj);
         }
-        else
+        else if(!this.state.file)
             alert('Please select the file')
+        else
+            alert('CorpId and corp name are required')
     }
 
     onChange(e) {
@@ -167,7 +169,12 @@ class CountryForm extends Component
 
     handleSubmit(values)
     {
+        if(values.name && values.population && values.commision && values.currName && values.exchageValue && values.curId)
         this.props.insertCountry(values);
+        else
+        {
+            alert("Country Name, population ,commission, currency name, exchange value, currency Id are required fields");
+        }
         //alert(JSON.stringify(values));
     }
     render()
@@ -335,7 +342,7 @@ class CountryForm extends Component
                                                 <Errors
                                                     className="text-danger"
                                                     model=".curId"
-                                                    show=""
+                                                    show="touched"
                                                     messages={{
                                                         required: 'Required. ',
                                                         minLength: 'Must be greater than 2 characters ',
@@ -376,7 +383,12 @@ class MarketForm extends Component
 
     handleSubmit(values)
     {
+        if(values.marketName && values.workingDays && values.name && values.marketId)
         this.props.insertMarket(values);
+        else
+        {
+            alert("Market Name, Working Days, Country and market Id are required fields");
+        }
     }
 
     render()
@@ -522,12 +534,19 @@ class ShareInsertForm extends Component
 
     handleSubmit(values)
     {
-        let obj={};
-        obj.marketId=this.props.market.market.filter((item) => item.marketName===values.market)[0].marketId;
-        obj.corpId=this.props.corporation.company.filter((item) => item.corpName===values.corporation)[0].corpId;
-        obj={...obj,...values}
-        //alert(JSON.stringify(obj));
-        this.props.insertShare(obj);
+        if(values.shareId && values.shareValue && values.shareName && values.market && values.corporation)
+        {
+            let obj = {};
+            obj.marketId = this.props.market.market.filter((item) => item.marketName === values.market)[0].marketId;
+            obj.corpId = this.props.corporation.company.filter((item) => item.corpName === values.corporation)[0].corpId;
+            obj = {...obj, ...values}
+            //alert(JSON.stringify(obj));
+            this.props.insertShare(obj);
+        }
+        else
+        {
+            alert("Share Id, value, name, market and corporation are required");
+        }
     }
 
     render()
@@ -679,6 +698,107 @@ class ShareInsertForm extends Component
         );
     }
 }
+
+class ShareUpdateForm extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(values)
+    {
+        if(!values.shareValue)
+            alert("Share Value is required");
+        else
+        {
+            let obj={...values};
+            obj.shareId=this.props.shares.shares.filter((item) => item.shareName===values.shareName)[0].shareId;
+            this.props.updateShare(obj);
+        }
+    }
+
+
+    render()
+    {
+         const share=this.props.shares.shares.map((item) =>{
+            return(
+                <option>{item.shareName}</option>
+            )
+        });
+
+        return (
+            <div className={'container'}>
+                <div className={'row mt-4'}>
+                        <div className={'col-12'}>
+                            <h3>Update Share</h3>
+                            <hr/>
+                        </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-12'}>
+                        <Form model={'shareUpdateForm'} onSubmit={(values) => this.handleSubmit(values)}>
+                            <div className={'row'}>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="shareName" md={3}>Share Name</Label>
+                                            <Col md={9}>
+                                                <Control.select model={'.shareName'} name={'shareName'}
+                                                         className={'form-control'}>
+                                                {share}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                </div>
+                                <div className={'col-6'}>
+                                        <Row className={'form-group'}>
+                                            <Label htmlFor={'shareValue'} md={4}>New Share Value</Label>
+                                            <Col md={8}>
+                                                <Control.text model=".shareValue" id="shareValue" name="shareValue"
+                                                              placeholder="Share Value"
+                                                              className="form-control"
+                                                              validators={{
+                                                                  required,
+                                                                  isNumber,
+                                                                  minLength: minLength(2),
+                                                                  maxLength: maxLength(10)
+                                                              }}
+                                                />
+                                                <Errors
+                                                    className="text-danger"
+                                                    model=".shareValue"
+                                                    show="touched"
+                                                    messages={{
+                                                        required: 'Required. ',
+                                                        isNumber: 'Must be a number',
+                                                        minLength: 'Must be greater than 2 digits ',
+                                                        maxLength: 'Must be 10 digits or less'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                </div>
+                            </div>
+                            <div className={'row'}>
+                                    <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Col md={{size: 4, offset: 3}}>
+                                                <Button type="submit" color="primary" className={'btn-block'}>
+                                                    Submit
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
 class AdminComponent extends Component
 {
     render()
@@ -690,6 +810,7 @@ class AdminComponent extends Component
                 <MarketForm country={this.props.country} insertMarket={this.props.insertMarket}/>
                 <ShareInsertForm market={this.props.market} corporation={this.props.corporation}
                 insertShare={this.props.insertShare}/>
+                <ShareUpdateForm shares={this.props.shares} updateShare={this.props.updateShare}/>
             </div>
         )
     }

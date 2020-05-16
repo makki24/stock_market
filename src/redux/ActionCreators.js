@@ -862,3 +862,36 @@ export const insertShare =(data) =>(dispatch) =>
             alert(err);
         })
 }
+
+export const updateShare =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'shares',
+        {
+            method:'PUT',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully updated a Share")
+                dispatch(actions.reset('shareUpdateForm'))
+                dispatch(fetchShares());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}

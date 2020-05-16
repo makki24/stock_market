@@ -53,3 +53,8 @@ export const ShareInsertForm={
     corporation:'Ali babu',
     shareId:''
 }
+
+export const ShareUpdateForm={
+    shareName:'mishwak',
+    shareValue:''
+}
