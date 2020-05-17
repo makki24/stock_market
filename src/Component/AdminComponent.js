@@ -205,7 +205,7 @@ class CorpDeleteForm extends Component
                                             <Label htmlFor="corpName" md={3}>Corporation Name</Label>
                                             <Col md={9}>
                                                 <Control.select model={'.corpName'} name={'corpName'}
-                                                         className={'form-control'}>
+                                                         className={'form-control'} defaultValue={this.props.corp}>
                                                 {share}
                                                 </Control.select>
                                             </Col>
@@ -481,7 +481,7 @@ class CountryDeleteForm extends Component
                                             <Label htmlFor="name" md={3}>Country Name</Label>
                                             <Col md={9}>
                                                 <Control.select model={'.name'} name={'name'}
-                                                         className={'form-control'}>
+                                                         className={'form-control'} defaultValue={this.props.name}>
                                                 {share}
                                                 </Control.select>
                                             </Col>
@@ -603,7 +603,7 @@ class MarketForm extends Component
                                         <Row className="form-group">
                                             <Label htmlFor="name" md={3}>Country</Label>
                                             <Col md={9}>
-                                                <Control.select model={'.name'} name={'name'}
+                                                <Control.select model={'.name'} name={'name'} defaultValue={this.props.name}
                                                          className={'form-control'}>
                                                 {countr}
                                                 </Control.select>
@@ -666,7 +666,9 @@ class MarketDeleteForm extends Component
 
     handleSubmit(values)
     {
-        this.props.deleteMarket(values);
+        let obj={};
+        obj.marketId = this.props.market.market.filter((item) => item.marketName === values.market)[0].marketId;
+        this.props.deleteMarket(obj);
     }
 
 
@@ -692,10 +694,10 @@ class MarketDeleteForm extends Component
                             <div className={'row'}>
                                 <div className={'col-6'}>
                                         <Row className="form-group">
-                                            <Label htmlFor="marketName" md={3}>Market Name</Label>
+                                            <Label htmlFor="market" md={3}>Market Name</Label>
                                             <Col md={9}>
-                                                <Control.select model={'.marketName'} name={'marketName'}
-                                                         className={'form-control'}>
+                                                <Control.select model={'.market'} name={'market'}
+                                                         className={'form-control'} defaultValue={this.props.marketname}>
                                                 {share}
                                                 </Control.select>
                                             </Col>
@@ -829,7 +831,7 @@ class ShareInsertForm extends Component
                                             <Label htmlFor="market" md={3}>Market</Label>
                                             <Col md={9}>
                                                 <Control.select model={'.market'} name={'market'}
-                                                         className={'form-control'}>
+                                                         className={'form-control'} defaultValue={this.props.marketname}>
                                                 {market}
                                                 </Control.select>
                                             </Col>
@@ -840,7 +842,7 @@ class ShareInsertForm extends Component
                                             <Label htmlFor="corporation" md={4}>Corporation</Label>
                                             <Col md={8}>
                                                 <Control.select model={'.corporation'} name={'corporation'}
-                                                         className={'form-control'}>
+                                                         className={'form-control'} defaultValue={this.props.corp}>
                                                 {corporation}
                                                 </Control.select>
                                             </Col>
@@ -940,7 +942,7 @@ class ShareUpdateForm extends Component
                                             <Label htmlFor="shareName" md={3}>Share Name</Label>
                                             <Col md={9}>
                                                 <Control.select model={'.shareName'} name={'shareName'}
-                                                         className={'form-control'}>
+                                                         className={'form-control'} defaultValue={this.props.sharename}>
                                                 {share}
                                                 </Control.select>
                                             </Col>
@@ -1036,7 +1038,7 @@ class ShareDeleteForm extends Component
                                             <Label htmlFor="shareName" md={3}>Share Name</Label>
                                             <Col md={9}>
                                                 <Control.select model={'.shareName'} name={'shareName'}
-                                                         className={'form-control'}>
+                                                         className={'form-control'} defaultValue={this.props.sharename}>
                                                 {share}
                                                 </Control.select>
                                             </Col>
@@ -1064,18 +1066,27 @@ class AdminComponent extends Component
 {
     render()
     {
+        let corp="",market="",country="",sharename="";
+        if(this.props.corporation.company[0])
+           corp=this.props.corporation.company[0].corpName;
+        if(this.props.market.market[0])
+           market=this.props.market.market[0].marketName;
+        if(this.props.country.country[0])
+           country=this.props.country.country[0].name;
+        if(this.props.shares.shares[0])
+            sharename=this.props.shares.shares[0].shareName;
         return(
             <div>
                 <CorpForm insertCorp={this.props.insertCorp} />
-                <CorpDeleteForm corporation={this.props.corporation} deleteCorp={this.props.deleteCorp}/>
+                <CorpDeleteForm corporation={this.props.corporation} deleteCorp={this.props.deleteCorp} corp={corp}/>
                 <CountryForm insertCountry={this.props.insertCountry}/>
-                <CountryDeleteForm deleteCountry={this.props.deleteCountry} country={this.props.country} />
-                <MarketForm country={this.props.country} insertMarket={this.props.insertMarket}/>
-                <MarketDeleteForm market={this.props.market} deleteMarket={this.props.deleteMarket}/>
-                <ShareInsertForm market={this.props.market} corporation={this.props.corporation}
+                <CountryDeleteForm deleteCountry={this.props.deleteCountry} country={this.props.country} name={country}/>
+                <MarketForm country={this.props.country} insertMarket={this.props.insertMarket} name={country}/>
+                <MarketDeleteForm market={this.props.market} deleteMarket={this.props.deleteMarket} marketname={market}/>
+                <ShareInsertForm market={this.props.market} corporation={this.props.corporation} corp={corp} marketname={market}
                 insertShare={this.props.insertShare}/>
-                <ShareUpdateForm shares={this.props.shares} updateShare={this.props.updateShare}/>
-                <ShareDeleteForm shares={this.props.shares} deleteShare={this.props.deleteShare}/>
+                <ShareUpdateForm shares={this.props.shares} updateShare={this.props.updateShare} sharename={sharename}/>
+                <ShareDeleteForm shares={this.props.shares} deleteShare={this.props.deleteShare} sharename={sharename}/>
             </div>
         )
     }

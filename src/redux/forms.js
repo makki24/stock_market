@@ -43,33 +43,33 @@ export const CountryForm ={
 export const MarketForm ={
     marketName:'',
     workingDays:'',
-    name:'Bandrinka'
+    name:''
 }
 
 export const ShareInsertForm={
     shareName:'',
     shareValue:'',
-    market:'lalu',
-    corporation:'Ali babu',
+    market:'',
+    corporation:'',
     shareId:''
 }
 
 export const ShareUpdateForm={
-    shareName:'mishwak',
+    shareName:'',
     shareValue:''
 }
 export const ShareDeleteForm={
-    shareName:'mishwak'
+    shareName:''
 }
 
 export const CorpDeleteForm={
-    corpName:'Ali babu'
+    corpName:''
 }
 
 export const CountryDeleteForm={
-    name:'Bandrinka'
+    name:''
 }
 
 export const MarketDeleteForm={
-    marketName:'lalu'
+    market:''
 }

@@ -1014,6 +1014,7 @@ export const deleteMarket =(data) =>(dispatch) =>
                 alert("Successfully deleted a market")
                 dispatch(actions.reset('marketDeleteForm'))
                 dispatch(fetchMarket());
+                dispatch(fetchShares());
             }
             else
             {
