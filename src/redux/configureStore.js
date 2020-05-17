@@ -15,7 +15,7 @@ import {
     CountryForm,
     MarketForm,
     ShareInsertForm,
-    ShareUpdateForm
+    ShareUpdateForm, ShareDeleteForm, CorpDeleteForm, CountryDeleteForm, MarketDeleteForm
 } from "./forms";
 import {accountCreation} from "./accountCreation";
 import {country} from "./country";
@@ -40,7 +40,11 @@ export const ConfigureStore = () => {
                 countryForm:CountryForm,
                 marketForm:MarketForm,
                 shareInsertForm:ShareInsertForm,
-                shareUpdateForm:ShareUpdateForm
+                shareUpdateForm:ShareUpdateForm,
+                shareDeleteForm:ShareDeleteForm,
+                corpDeleteForm:CorpDeleteForm,
+                countryDeleteForm:CountryDeleteForm,
+                marketDeleteForm:MarketDeleteForm
             })
         }),
         applyMiddleware(thunk, logger)

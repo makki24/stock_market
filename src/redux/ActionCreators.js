@@ -895,3 +895,135 @@ export const updateShare =(data) =>(dispatch) =>
             alert(err);
         })
 }
+
+export const deleteShare =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'shares',
+        {
+            method:'DELETE',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully deleted a Share")
+                dispatch(actions.reset('shareDeleteForm'))
+                dispatch(fetchShares());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}
+
+export const deleteCorp =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'corporation',
+        {
+            method:'DELETE',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully deleted a corporation")
+                dispatch(actions.reset('corpDeleteForm'))
+                dispatch(fetchCorporation());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}
+
+export const deleteCountry =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'country',
+        {
+            method:'DELETE',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully deleted a country")
+                dispatch(actions.reset('countryDeleteForm'))
+                dispatch(fetchCountry());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}
+
+export const deleteMarket =(data) =>(dispatch) =>
+{
+    return fetch(baseUrl+'market',
+        {
+            method:'DELETE',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(data),
+        },err=> {throw (err)})
+        .then(response => response.json())
+        .then(response =>
+        {
+            if(response.success)
+            {
+                alert("Successfully deleted a market")
+                dispatch(actions.reset('marketDeleteForm'))
+                dispatch(fetchMarket());
+            }
+            else
+            {
+                var error = new Error('Error ' + response.err);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        })
+}

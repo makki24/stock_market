@@ -27,11 +27,6 @@ class CorpForm extends Component
         {
             const formData = new FormData();
             formData.append('imageFile', this.state.file);
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            };
             let obj={image:'images/'+this.state.file.name};
             obj={...obj,...values,formData};
             this.props.insertCorp(obj);
@@ -156,6 +151,81 @@ class CorpForm extends Component
                     </div>
             </div>
         )
+    }
+}
+
+class CorpDeleteForm extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(values)
+    {
+        let obj={...values};
+        let corp = this.props.corporation.company.filter((item) => item.corpName === values.corpName)[0];
+        if(corp)
+        {
+            obj.corpId=corp.corpId;
+            this.props.deleteCorp(obj);
+        }
+        else
+        {
+            alert("Corporation doesn't exist");
+        }
+        //alert(JSON.stringify(values));
+
+    }
+
+
+    render()
+    {
+         const share=this.props.corporation.company.map((item) =>{
+            return(
+                <option>{item.corpName}</option>
+            )
+        });
+
+        return (
+            <div className={'container'}>
+                <div className={'row mt-4'}>
+                        <div className={'col-12'}>
+                            <h3>Delete Corporation</h3>
+                            <hr/>
+                        </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-12'}>
+                        <Form model={'corpDeleteForm'} onSubmit={(values) => this.handleSubmit(values)}>
+                            <div className={'row'}>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="corpName" md={3}>Corporation Name</Label>
+                                            <Col md={9}>
+                                                <Control.select model={'.corpName'} name={'corpName'}
+                                                         className={'form-control'}>
+                                                {share}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                </div>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Col md={{size: 4, offset: 0}}>
+                                                <Button type="submit" color="primary" className={'btn-block'}>
+                                                    Submit
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 
@@ -372,6 +442,68 @@ class CountryForm extends Component
     }
 }
 
+class CountryDeleteForm extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(values)
+    {
+        this.props.deleteCountry(values);
+    }
+
+
+    render()
+    {
+         const share=this.props.country.country.map((item) =>{
+            return(
+                <option>{item.name}</option>
+            )
+        });
+
+        return (
+            <div className={'container'}>
+                <div className={'row mt-4'}>
+                        <div className={'col-12'}>
+                            <h3>Delete Country</h3>
+                            <hr/>
+                        </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-12'}>
+                        <Form model={'countryDeleteForm'} onSubmit={(values) => this.handleSubmit(values)}>
+                            <div className={'row'}>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="name" md={3}>Country Name</Label>
+                                            <Col md={9}>
+                                                <Control.select model={'.name'} name={'name'}
+                                                         className={'form-control'}>
+                                                {share}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                </div>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Col md={{size: 4, offset: 0}}>
+                                                <Button type="submit" color="primary" className={'btn-block'}>
+                                                    Submit
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 
 class MarketForm extends Component
 {
@@ -521,6 +653,69 @@ class MarketForm extends Component
                     </div>
              </div>
         )
+    }
+}
+
+class MarketDeleteForm extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(values)
+    {
+        this.props.deleteMarket(values);
+    }
+
+
+    render()
+    {
+         const share=this.props.market.market.map((item) =>{
+            return(
+                <option>{item.marketName}</option>
+            )
+        });
+
+        return (
+            <div className={'container'}>
+                <div className={'row mt-4'}>
+                        <div className={'col-12'}>
+                            <h3>Delete Market</h3>
+                            <hr/>
+                        </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-12'}>
+                        <Form model={'marketDeleteForm'} onSubmit={(values) => this.handleSubmit(values)}>
+                            <div className={'row'}>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="marketName" md={3}>Market Name</Label>
+                                            <Col md={9}>
+                                                <Control.select model={'.marketName'} name={'marketName'}
+                                                         className={'form-control'}>
+                                                {share}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                </div>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Col md={{size: 4, offset: 0}}>
+                                                <Button type="submit" color="primary" className={'btn-block'}>
+                                                    Submit
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 
@@ -799,6 +994,72 @@ class ShareUpdateForm extends Component
     }
 }
 
+class ShareDeleteForm extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(values)
+    {
+            let obj={...values};
+            obj.shareId=this.props.shares.shares.filter((item) => item.shareName===values.shareName)[0].shareId;
+            console.log(obj);
+            this.props.deleteShare(obj);
+    }
+
+
+    render()
+    {
+         const share=this.props.shares.shares.map((item) =>{
+            return(
+                <option>{item.shareName}</option>
+            )
+        });
+
+        return (
+            <div className={'container'}>
+                <div className={'row mt-4'}>
+                        <div className={'col-12'}>
+                            <h3>Delete Share</h3>
+                            <hr/>
+                        </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-12'}>
+                        <Form model={'shareDeleteForm'} onSubmit={(values) => this.handleSubmit(values)}>
+                            <div className={'row'}>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Label htmlFor="shareName" md={3}>Share Name</Label>
+                                            <Col md={9}>
+                                                <Control.select model={'.shareName'} name={'shareName'}
+                                                         className={'form-control'}>
+                                                {share}
+                                                </Control.select>
+                                            </Col>
+                                        </Row>
+                                </div>
+                                <div className={'col-6'}>
+                                        <Row className="form-group">
+                                            <Col md={{size: 4, offset: 0}}>
+                                                <Button type="submit" color="primary" className={'btn-block'}>
+                                                    Submit
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
 class AdminComponent extends Component
 {
     render()
@@ -806,11 +1067,15 @@ class AdminComponent extends Component
         return(
             <div>
                 <CorpForm insertCorp={this.props.insertCorp} />
+                <CorpDeleteForm corporation={this.props.corporation} deleteCorp={this.props.deleteCorp}/>
                 <CountryForm insertCountry={this.props.insertCountry}/>
+                <CountryDeleteForm deleteCountry={this.props.deleteCountry} country={this.props.country} />
                 <MarketForm country={this.props.country} insertMarket={this.props.insertMarket}/>
+                <MarketDeleteForm market={this.props.market} deleteMarket={this.props.deleteMarket}/>
                 <ShareInsertForm market={this.props.market} corporation={this.props.corporation}
                 insertShare={this.props.insertShare}/>
                 <ShareUpdateForm shares={this.props.shares} updateShare={this.props.updateShare}/>
+                <ShareDeleteForm shares={this.props.shares} deleteShare={this.props.deleteShare}/>
             </div>
         )
     }

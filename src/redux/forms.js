@@ -58,3 +58,18 @@ export const ShareUpdateForm={
     shareName:'mishwak',
     shareValue:''
 }
+export const ShareDeleteForm={
+    shareName:'mishwak'
+}
+
+export const CorpDeleteForm={
+    corpName:'Ali babu'
+}
+
+export const CountryDeleteForm={
+    name:'Bandrinka'
+}
+
+export const MarketDeleteForm={
+    marketName:'lalu'
+}
